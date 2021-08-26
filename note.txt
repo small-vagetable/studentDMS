@@ -1,0 +1,30 @@
+ajax 前台发送数据后台接收
+前端代码
+ $.ajax(
+                {
+                    type:'get',类型
+                    url:'/getTime',接口名
+                    data:{time:"2020-17-20"},数据
+                    success:function(e){
+                        console.log(e)  成功后的执行代码
+                    }
+                }
+            )
+后端：
+app.get('/getTime',function (req,res){  对应的接口名 回调函数（req,res） req用来接收发过来的数据
+    var time=sd.format(new Date(), 'YYYY-MM-DD HH:mm:ss');
+    console.log(req.query.time)  //这里的req.query就是发过来的数据，因为发过来的数据是对象格式，所以可以直接用点语法获取
+    res.send(time)            //res.send是发送数据，若要发送文件，用res.sendFile
+})
+
+get方式中
+var {username,password} = req.query可以直接获取多个传过来的数据
+
+
+post
+app.post('/tologin',urlencodeParser,function (req,res){
+var {username,password} = req.body;
+console.log(username,password);
+// res.redirect('http://www.baidu.com')
+res.send('成功')
+})
